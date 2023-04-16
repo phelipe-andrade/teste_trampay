@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  name       String
+  email      String     @unique
+  password   String
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  Moviment   Moviment[]
+
+  @@map("users")
+}
+
+model Moviment {
+  id            Int      @id @default(autoincrement())
+  value         Float
+  cpf           String
+  date_launch   String
+  user          User     @relation(fields: [registered_by], references: [id])
+  registered_by Int
+  created_at    DateTime @default(now())
+  deleted_at    DateTime
+
+  @@map("moviments")
+}
