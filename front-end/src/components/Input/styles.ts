@@ -26,7 +26,7 @@ export const Label = styled.label`
   ${({theme}) => css`
     position: absolute;
     color: ${theme.colors.text};
-    font-size: ${theme.font.sizes.medium};
+    font-size: ${theme.font.sizes.small};
     left: ${theme.spacings.medium};
     top: -18%;
     background: ${theme.colors.background};

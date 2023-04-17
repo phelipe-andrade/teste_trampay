@@ -22,9 +22,9 @@ export const GlobalStyles = createGlobalStyle`
 
 export const Title = styled.h1`
   ${({theme} )=> css`
-    font-size: ${theme.font.sizes.xLarge};
-    line-height: ${theme.font.sizes.xLarge};
-    margin: ${theme.spacings.xLarge} 0;
+    font-size: ${theme.font.sizes.xxLarge};
+    line-height: ${theme.font.sizes.medium};
+    margin: ${theme.spacings.large} 0;
 
     &::after {
       content: '';
@@ -32,31 +32,9 @@ export const Title = styled.h1`
       width: 30px;
       height: 5px;
       margin-top: 5px;
-      background: ${theme.colors.text};
+      background: ${theme.colors.primary};
       border-radius: 3px;
     }
   `}
 `;
-
-export const Button = styled.button`
-    ${({theme}) => css`
-      background: ${theme.colors.background};
-      color: ${theme.colors.text};
-      font-size: ${theme.font.sizes.medium};
-      font-weight: ${theme.font.weight.bold};
-      letter-spacing: 1px;
-      border: 2px solid ${theme.colors.secundary};
-      border-radius: 3px;
-      padding: ${theme.spacings.small} ${theme.spacings.large};
-      margin: ${theme.spacings.small};
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-      
-
-      &:hover{
-        box-shadow: ${theme.box.shadow};
-      }
-  `}
-`;
-
 

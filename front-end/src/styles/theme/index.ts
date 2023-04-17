@@ -35,7 +35,7 @@ const defaultTheme = {
   },
 
   box: {
-    shadow: '2px 6px 8px rgba(0,0,0,0.3)',
+    shadow: '2px 6px 8px rgba(0,0,0,0.2)',
     border: '2px solid #595959',
     radius: '5px',
   }

@@ -1,6 +1,4 @@
-import { IUserLogin } from '@/containers/LoginPage';
 import * as Styled from './styles';
-import { Dispatch, SetStateAction } from 'react';
 
 interface IInput {
   id: string;
