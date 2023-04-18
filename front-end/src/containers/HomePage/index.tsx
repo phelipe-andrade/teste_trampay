@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import * as Styled from './styles';
 import Button from '@/components/Button';
+import { useRouter } from 'next/router';
 
 export default function HomePage() {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -14,8 +16,8 @@ export default function HomePage() {
         <h1>Trampay - Teste</h1>
         <div>
           <p>Acesse a plataform:</p>
-          <Button link='/user/login' text='Login'/>
-          <Button link='/user/register' text='Cadastre-se'/>
+          <Button onClick={() => router.push('/user/login')} text='Login'/>
+          <Button onClick={() => router.push('/user/register')} text='Cadastre-se'/>
         </div>
       </Styled.Content>
     </>

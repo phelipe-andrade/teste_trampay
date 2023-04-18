@@ -1,5 +1,11 @@
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsNumber, ValidateNested, IsArray } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  ValidateNested,
+  IsArray,
+  MinLength
+} from 'class-validator';
 
 export class RegisterMovementDTO {
   @IsNotEmpty({ message: "Campo 'value' não pode ser vazio." })
@@ -7,6 +13,7 @@ export class RegisterMovementDTO {
   value: number;
 
   @IsNotEmpty({ message: "Campo 'cpf' não pode ser vazio." })
+  @MinLength(11)
   cpf: string;
 
   @IsNotEmpty({ message: "Campo 'date_launch' não pode ser vazio." })

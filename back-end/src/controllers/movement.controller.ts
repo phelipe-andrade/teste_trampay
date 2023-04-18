@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, Request } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request} from '@nestjs/common';
 import { ExceptionMessage } from 'src/dto/message/ExceptionMessage';
 import { RegisterMovementArrayDTO } from 'src/dto/movement/RegisterMovementDTO';
 import { CustomRequest } from 'src/protocols/CustomRequest';
@@ -15,5 +15,11 @@ export class MovementController {
   ) {
     if (req.id) return await this.movementService.register(req.id, movements);
     throw new ExceptionMessage('Id do usuário não encontrado');
+  }
+
+  @Get()
+  async list() {
+    const deleted = false;
+    return await this.movementService.listMoviments(deleted);
   }
 }

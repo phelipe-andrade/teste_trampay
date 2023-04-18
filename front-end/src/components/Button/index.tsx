@@ -2,18 +2,28 @@ import Link from "next/link";
 import * as Styled from './styles';
 
 interface IButton {
-  link: string;
   text: string;
+  onClick: any;
+  loading?: boolean;
 }
 
-export default function Button({link, text}: IButton) {
+export default function Button({text, onClick, loading = false}: IButton) {
   return (
     <>
-      <Link href={link}>
-        <Styled.Button>
+      {
+        loading ? 
+        <Styled.Button
+          disabled
+        >
+          Carregando...
+        </Styled.Button>
+        :
+        <Styled.Button
+        onClick={onClick}
+        >
           {text}
         </Styled.Button>
-      </Link>
+        }
     </>
   )
 }

@@ -17,20 +17,20 @@ model User {
   password   String
   created_at DateTime   @default(now())
   updated_at DateTime   @updatedAt
-  Moviment   Moviment[]
+  Movement   Movement[]
 
   @@map("users")
 }
 
-model Moviment {
-  id            Int      @id @default(autoincrement())
+model Movement {
+  id            Int       @id @default(autoincrement())
   value         Float
   cpf           String
   date_launch   String
-  user          User     @relation(fields: [registered_by], references: [id])
+  user          User      @relation(fields: [registered_by], references: [id])
   registered_by Int
-  created_at    DateTime @default(now())
-  deleted_at    DateTime
+  created_at    DateTime
+  deleted_at    DateTime?
 
-  @@map("moviments")
+  @@map("movements")
 }
