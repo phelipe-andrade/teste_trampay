@@ -13,7 +13,7 @@ export default function HomePage() {
       </Head>
       <Styled.Content>
         <p>Bem-vindo</p>
-        <h1>Trampay - Teste</h1>
+        <Styled.Title>Trampay - Teste</Styled.Title>
         <div>
           <p>Acesse a plataform:</p>
           <Button onClick={() => router.push('/user/login')} text='Login'/>

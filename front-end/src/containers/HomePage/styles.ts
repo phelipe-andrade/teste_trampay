@@ -1,5 +1,11 @@
 import styled, {css} from "styled-components";
 
+export const Title = styled.h1`
+  ${({theme}) => css`
+    color: ${theme.colors.secundary} ;
+  `}
+`
+
 export const Content = styled.div`
   text-align: center;
   display: flex;

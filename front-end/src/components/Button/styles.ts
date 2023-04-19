@@ -7,7 +7,7 @@ export const Button = styled.button`
       font-size: ${theme.font.sizes.medium};
       font-weight: ${theme.font.weight.bold};
       letter-spacing: 1px;
-      border: 1px solid ${theme.colors.primary};
+      border: 1px solid #23e971;
       border-radius: 3px;
       padding: ${theme.spacings.small} ${theme.spacings.large};
       margin: ${theme.spacings.small};

@@ -38,16 +38,4 @@ export const Container = styled.div`
   .checkbox:checked + .label .ball {
     transform: translateX(25px);
   }
-
-  .fa-sun,
-  .fa-moon {
-    fill: ${({theme}) => theme.colors.text};
-  }
-
-  .fa-moon {
-    margin-right: -2px;
-  }
-  .fa-sun {
-    margin-left: -2px;
-  }
 `

@@ -32,7 +32,7 @@ export const Title = styled.h1`
       width: 30px;
       height: 5px;
       margin-top: 5px;
-      background: ${theme.colors.primary};
+      background: #23e971;
       border-radius: 3px;
     }
   `}
@@ -50,6 +50,8 @@ export const Form = styled.div`
       margin-bottom: ${theme.spacings.medium};
     }
 
+    
+
     & button {
       width: 100%;
       margin: 0;
@@ -60,21 +62,21 @@ export const Form = styled.div`
       color: ${theme.colors.text};
       
       & a {
-        color: ${theme.colors.primary};
+        color: #23e971;
         font-weight: ${theme.font.weight.semiBold};
         margin-left: 5px;
       }
     }
 
     & span {
-
       margin: ${theme.spacings.xSmall} 0px;
+      color: ${theme.colors.text};
 
       &::after, &::before {
         content: '';
         width: 35px;
         height: 1px;
-        background: ${theme.colors.text};
+        background: ${theme.colors.secundary};
         display: inline-block;
         margin: 0 5px 3px 5px;
 

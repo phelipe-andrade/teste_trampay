@@ -2,7 +2,7 @@ import styled, {css} from "styled-components";
 
 export const Wrapper = styled.div`
    ${({theme}) => css`
-    border: 1px solid ${theme.colors.primary};
+    border: 1px solid #23e971;
     border-radius: 3px;
     position: relative;
     margin-bottom: ${theme.spacings.medium};
@@ -19,6 +19,7 @@ export const Input = styled.input`
     background: none;
     outline: none;
     border: none;
+    color: ${theme.colors.text};
   `}
 `;
 

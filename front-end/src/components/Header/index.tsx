@@ -20,7 +20,7 @@ export default function Header() {
     <Styled.Header>
       <Styled.Content>
         <Link href="/">
-            Trampay - Teste
+            <Styled.Logo>Trampay - Teste</Styled.Logo>
         </Link>
         <div>
           <nav>

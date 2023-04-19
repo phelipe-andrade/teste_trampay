@@ -30,6 +30,7 @@ export const Content = styled.div`
 
     &:hover {
       opacity: 0.7;
+      color: ${({theme}) => theme.colors.secundary};
     };
 
     &::after {
@@ -39,7 +40,7 @@ export const Content = styled.div`
       position: absolute;
       width: 0%;
       height: 2px;
-      background: ${({theme}) => theme.colors.text};
+      background: ${({theme}) => theme.colors.secundary};
       border-radius: 3px;
       border: none;
       transition: all 0.2s ease-in-out;
@@ -55,4 +56,11 @@ export const Content = styled.div`
     display: flex;
   }
 
+`;
+
+export const Logo = styled.span`
+  ${({theme}) => css`
+      color: ${theme.colors.secundary};
+      font-weight: ${theme.font.weight.semiBold};
+  `}
 `;

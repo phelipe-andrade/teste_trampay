@@ -1,3 +1,4 @@
+import { IRegisterMovement } from "./protocols/moviment/IResgisterMovement";
 import { IResetPassword } from "./protocols/password/IResetPassword";
 import { IUserLogin } from "./protocols/user/IUserLogin";
 import { IUserRegister } from "./protocols/user/IUserRegister";
@@ -46,6 +47,19 @@ export function USER_RECOVER(body: IUserRecover) {
     options: {
       ...POST, 
       body: JSON.stringify(body)
+    },
+  };
+}
+
+export function MOVEMENT_REGISTER(body: IRegisterMovement[], token: string) {
+  return {
+    url: API_URL + '/movement',
+    options: {
+      ...POST, 
+      body: JSON.stringify(body),
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
     },
   };
 }
