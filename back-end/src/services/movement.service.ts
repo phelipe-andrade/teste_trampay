@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/db/PrismaService';
-import { AuthService } from './auth.service';
 import { RegisterMovementDTO } from 'src/dto/movement/RegisterMovementDTO';
 import { groupedByCpf } from 'src/helper/groupedByCpf';
 import { MovementDTO } from 'src/dto/movement/MovementDTO';
+import { MessageDTO } from 'src/dto/message/MessageDTO';
 
 @Injectable()
 export class MovementService {
-  constructor(
-    private readonly prismaService: PrismaService,
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async register(id: number, movements: RegisterMovementDTO[]) {
+  async register(
+    id: number,
+    movements: RegisterMovementDTO[],
+  ): Promise<MessageDTO> {
     const movementsByCpf = groupedByCpf(movements, id);
 
     Object.keys(movementsByCpf).forEach(async (cpf) => {
@@ -20,14 +20,17 @@ export class MovementService {
       await this.prismaService.movement.create({
         data: {
           ...movementsByCpf[cpf],
-          created_at: new Date()
-        }
-      })
+          created_at: new Date(),
+        },
+      });
     });
+    return new MessageDTO(['CSV salvo com sucesso.']);
   }
 
   async listMoviments(deleted: boolean): Promise<MovementDTO[]> {
-    const where = deleted ? { deleted_at: { not: null } } : { deleted_at: null };
+    const where = deleted
+      ? { deleted_at: { not: null } }
+      : { deleted_at: null };
     return await this.prismaService.movement.findMany({
       where,
     });
@@ -40,11 +43,11 @@ export class MovementService {
         created_at: {
           gte: new Date(new Date().toJSON().split('T')[0]).toISOString(),
         },
-        deleted_at: null
+        deleted_at: null,
       },
     });
-        
-    if(!existingMovements) return;
+
+    if (!existingMovements) return;
     for (const movement of existingMovements) {
       await this.prismaService.movement.update({
         where: { id: movement.id },

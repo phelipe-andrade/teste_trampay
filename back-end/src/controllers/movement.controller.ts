@@ -13,6 +13,8 @@ export class MovementController {
     @Request() req: CustomRequest,
     @Body() { movements }: RegisterMovementArrayDTO,
   ) {
+    console.log(movements);
+    
     if (req.id) return await this.movementService.register(req.id, movements);
     throw new ExceptionMessage('Id do usuário não encontrado');
   }

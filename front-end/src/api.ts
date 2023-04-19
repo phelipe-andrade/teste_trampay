@@ -55,11 +55,12 @@ export function MOVEMENT_REGISTER(body: IRegisterMovement[], token: string) {
   return {
     url: API_URL + '/movement',
     options: {
-      ...POST, 
-      body: JSON.stringify(body),
+      method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
+      body: JSON.stringify({movements: body}),
     },
   };
 }

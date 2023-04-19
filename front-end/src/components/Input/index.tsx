@@ -8,10 +8,10 @@ interface IInput {
   placeholder: string;
   onChange: (value: string)=> void;
   onBlur: () => void;
-  error: boolean;
+  disabled?: boolean;
 }
 
-export default function Input({ label, type, id, value, placeholder, onChange, error, onBlur }: IInput) {
+export default function Input({ label, type, id, value, placeholder, onChange, onBlur, disabled = false }: IInput) {
 
   return (
     <>
@@ -23,6 +23,7 @@ export default function Input({ label, type, id, value, placeholder, onChange, e
           onChange={(event) => onChange(event.target.value)}
           onBlur={onBlur}
           placeholder={placeholder}
+          disabled={disabled}
         />
 
         {label &&
@@ -30,8 +31,6 @@ export default function Input({ label, type, id, value, placeholder, onChange, e
             {label}
           </Styled.Label>
         }
-
-        {/* {error && <p className={styles.error}>{error}</p>} */}
       </Styled.Wrapper>
     </>
   );

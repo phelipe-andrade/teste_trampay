@@ -1,8 +1,8 @@
-import { IRegisterMovement } from '@/protocols/moviment/IResgisterMovement';
 import * as Styled from './styles'
+import { IMovement } from '@/protocols/moviment/IMovement';
 
 
-export default function Preview({movements, headers}: {movements: IRegisterMovement[], headers: string[]}) {  
+export default function ListMovement({movements, headers}: {movements: IMovement[], headers: string[]}) {  
   return (
     <>
       <Styled.Table>
@@ -18,9 +18,12 @@ export default function Preview({movements, headers}: {movements: IRegisterMovem
         <tbody>
           { movements.map((movement, index) => (
             <tr key={index + movement.value}>
-              <td>{movement.date_launch}</td>
+              <td>{movement.id}</td>
               <td>{movement.cpf}</td>
               <td>{movement.value}</td>
+              <td>{movement.date_launch}</td>
+              <td>{new Date(movement.created_at).toLocaleDateString()}</td>
+              <td>{movement.registered_by}</td>
             </tr>
           ))}
         </tbody>

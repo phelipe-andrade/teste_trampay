@@ -45,7 +45,7 @@ export class PasswordService {
       old_password,
       user.password,
     );
-    if (!userValid) throw new ExceptionMessage('Usuário ou senha de confirmação inválido.');
+    if (!userValid) throw new ExceptionMessage('Senha de confirmação inválida.');
 
     const hashPassword = await this.authService.hashPassword(new_password);
 

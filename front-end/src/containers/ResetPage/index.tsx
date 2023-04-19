@@ -1,20 +1,24 @@
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import * as Global from '@/styles/global-styles';
-import { MouseEvent, useState } from "react";
-import { IResetPassword, IResetPasswordForm } from "@/protocols/password/IResetPassword";
+import { MouseEvent, useEffect, useState } from "react";
+import { IResetPasswordForm } from "@/protocols/password/IResetPassword";
 import Error from "@/components/Error";
 import useFetch from "@/helper/useFetch";
 import { RESET_PASSWORD } from "@/api";
-import { IMessage } from "@/protocols/IMessage";
 import { IToken } from "@/protocols/IToken";
 import { setLocalStorage } from "@/helper/localStorage";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { IRedux } from "@/protocols/IRedux";
+import { messageApp } from "@/store/message";
 
 export default function ResetPage() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const {email} = useSelector((state: IRedux) => state.user);
   const [resetPassword, setResetPassword] = useState<IResetPasswordForm>({
-    email: '',
+    email: email,
     password: '',
     password_new: '',
     password_repeat: ''
@@ -22,6 +26,7 @@ export default function ResetPage() {
   const [errorPassword, setErrorPassword] = useState<boolean>(false);
 
   const { loading, error, request } = useFetch<IToken>();
+
   async function handleSubmit(event: MouseEvent<HTMLButtonElement, MouseEvent>){
     event.preventDefault();
     
@@ -40,9 +45,11 @@ export default function ResetPage() {
 
     if(response && response.ok) {
       setLocalStorage('token', json.token); 
+      dispatch(messageApp(['Senha atualizada com sucesso.']))
       router.push("/csv");
     } 
   };
+  
 
   return (
     <Global.Form>
@@ -53,17 +60,17 @@ export default function ResetPage() {
         label="E-MAIL" 
         type="text" 
         id="email" 
-        error={false} 
+        disabled={true}
         onBlur={() => {}} 
         onChange={(value: string) => setResetPassword({...resetPassword, email: value})} 
         value={resetPassword.email}/>
+        
 
         <Input 
         placeholder="*********" 
         label="Senha" 
         type="password" 
         id="password" 
-        error={false} 
         onBlur={() => {}} 
         onChange={(value: string) => setResetPassword({...resetPassword, password: value})} 
         value={resetPassword.password}/>
@@ -72,8 +79,7 @@ export default function ResetPage() {
         placeholder="*********" 
         label="Nova Senha" 
         type="password" 
-        id="password_repeat" 
-        error={false} 
+        id="password_new" 
         onBlur={() => {}} 
         onChange={(value: string) => setResetPassword({...resetPassword, password_new: value})} 
         value={resetPassword.password_new}/>
@@ -83,7 +89,6 @@ export default function ResetPage() {
         label="Repita a Senha" 
         type="password" 
         id="password_repeat" 
-        error={false} 
         onBlur={() => {}} 
         onChange={(value: string) => setResetPassword({...resetPassword, password_repeat: value})} 
         value={resetPassword.password_repeat}/>

@@ -1,5 +1,6 @@
 import RegisterCsvPage from "@/containers/RegisterCsvPage";
+import Authentication from "@/helper/Authentication";
 
 export default function RegisterCsv() {
-  return <RegisterCsvPage/>
+  return <Authentication><RegisterCsvPage/></Authentication>
 }

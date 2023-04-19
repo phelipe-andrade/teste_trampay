@@ -2,7 +2,6 @@ import { ChangeEvent, MouseEvent, useState } from 'react';
 import csvToJson from 'csvtojson';
 import * as Styled from './styles';
 import { IRegisterMovement } from '@/protocols/moviment/IResgisterMovement';
-import Preview from '@/components/Preview';
 import * as Global from '@/styles/global-styles';
 import Button from '@/components/Button';
 import { MOVEMENT_REGISTER } from '@/api';
@@ -11,7 +10,9 @@ import { IMessage } from '@/protocols/IMessage';
 import { getLocalStorage } from '@/helper/localStorage';
 import Error from '@/components/Error';
 import { useRouter } from 'next/router';
-import { json } from 'stream/consumers';
+import Preview from '@/components/Preview';
+import { useDispatch } from 'react-redux';
+import { messageApp } from '@/store/message';
 
 
 interface ICsvFile {
@@ -22,6 +23,7 @@ interface ICsvFile {
 
 export default function RegisterCsvPage() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [dataMovement, setDataMovement] = useState<IRegisterMovement[]>([]);
   const [fileName, setFileName] = useState<string>('');
   const [csvError, setCsvError] = useState<boolean>(false);
@@ -31,7 +33,7 @@ export default function RegisterCsvPage() {
   function handleStringJson(jsonString: string) {
     const headers = ['data_do_lancamento_financeiro', 'documento_recebedor', 'valor'];
     let csvOk = true;
-
+        
     headers.forEach((header) => { 
       console.log(jsonString.includes(header));
       if(!jsonString.includes(header)) csvOk = false;
@@ -68,9 +70,9 @@ export default function RegisterCsvPage() {
 
       const json = await csvToJson({
         headers: ['data_do_lancamento_financeiro', 'documento_recebedor', 'valor'],
-        delimiter: ';',
+        delimiter: [',', ';'],
       }).fromString(csvText);
-      const jsonString = JSON.stringify(json, null, 2);
+      const jsonString = JSON.stringify(json);     
       handleStringJson(jsonString);
     };
     reader.readAsText(file[0]);
@@ -79,10 +81,10 @@ export default function RegisterCsvPage() {
   async function handleSubmit(event: MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
     const token = getLocalStorage('token') as string;
-    const {url, options} = MOVEMENT_REGISTER(dataMovement, token)
+    const {url, options} = MOVEMENT_REGISTER(dataMovement, token);       
     const {response, json} = await request(url, options);
     if(response && response.ok) {
-      console.log('enviou', json);
+      dispatch(messageApp(json.message));
       router.push('/csv');
     };
   }
@@ -100,7 +102,7 @@ export default function RegisterCsvPage() {
       { dataMovement.length > 0 && 
         <>
           <Global.Title>Preview</Global.Title>
-          <Preview movements={dataMovement}/>
+          <Preview movements={dataMovement} headers={['Data de Lançamento', 'CPF', 'Valor(R$)']}/>
           <Button text='Salvar' loading={loading} onClick={handleSubmit}/>
         </>
       }

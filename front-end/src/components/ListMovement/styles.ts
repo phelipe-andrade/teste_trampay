@@ -1,0 +1,20 @@
+import styled, { css } from "styled-components";
+
+export const Table = styled.table`
+    ${({theme}) => css`
+    border-collapse: collapse;
+    width: 800px;
+    column-gap: 20px;
+    border-spacing: 0 10px;
+    color: ${theme.colors.text};
+    margin: ${theme.spacings.medium} auto;
+
+    & th {
+      color: ${theme.colors.secundary} ;
+    }
+
+    & tr {
+      border-bottom: 1px solid ${theme.colors.primary};
+    }
+  `}
+`;

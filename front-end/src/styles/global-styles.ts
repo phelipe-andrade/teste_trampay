@@ -24,8 +24,8 @@ export const Title = styled.h1`
   ${({theme} )=> css`
     font-size: ${theme.font.sizes.xxLarge};
     line-height: ${theme.font.sizes.medium};
-    margin: ${theme.spacings.large} 0;
-
+    margin: ${theme.spacings.large} auto;
+  
     &::after {
       content: '';
       display: block;

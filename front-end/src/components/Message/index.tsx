@@ -1,20 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as Styled from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { IMessage } from '@/protocols/IMessage';
+import { messageApp } from '@/store/message';
 
-export default function Message({message = "teste", status = 400}:{status: number, message: string, show: boolean}) {
+export default function Message() {
+  const message = useSelector((state: IMessage) => state.message);
+  const dispatch = useDispatch();
   const [close, setClose] = useState<boolean>(false);
-  
-  useEffect(() => {
-    setTimeout(() => {
-     setClose(true)
-    }, 5000);
-    
-  }, [])
+
+  function handleClose() {
+    setClose(false);
+    dispatch(messageApp(['']))
+  }
 
   return (
-    <Styled.Wrapper className={close ? '' : 'active'}>
-      <Styled.Close onClick={() => setClose(false)}>X</Styled.Close>
-      <p>{message}</p>
-    </Styled.Wrapper>
+    <>
+      {
+        message[0].length > 0 &&
+
+      <Styled.Wrapper className={close ? '' : 'active'}>
+        <Styled.Close onClick={handleClose}>X</Styled.Close>
+        <p>{message[0]}</p>
+      </Styled.Wrapper>
+      }
+    </>
   )
 }
